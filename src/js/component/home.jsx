@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from 'react';
 
-
 const TodoApp = () => {
   const [todos, setTodos] = useState([]);
   const [newTask, setNewTask] = useState("");
 
   useEffect(() => {
-    // PUT
+    fetch('https://playground.4geeks.com/apis/fake/todos/user/caro72')
+      .then(response => response.json())
+      .then(data => {
+        setTodos(data);
+      })
+      .catch(error => {
+        console.error("Error fetching tasks:", error);
+      });
+  }, []);
+
+  useEffect(() => {
     fetch('https://playground.4geeks.com/apis/fake/todos/user/caro72', {
       method: "PUT",
       body: JSON.stringify(todos),
@@ -14,7 +23,12 @@ const TodoApp = () => {
         "Content-Type": "application/json"
       }
     })
-      .then(resp => resp.json())
+      .then(resp => {
+        console.log(resp.ok);
+        console.log(resp.status);
+        console.log(resp.text());
+        return resp.json();
+      })
       .then(data => {
         console.log("Tasks synchronized with the server:", data);
       })
@@ -23,20 +37,17 @@ const TodoApp = () => {
       });
   }, [todos]);
 
-  // Function to add a new task
   const addTodo = () => {
     if (newTask.trim() !== "") {
       const newTodo = {
-        id: Date.now(),
         label: newTask,
         done: false,
       };
       setTodos([...todos, newTodo]);
-      setNewTask(""); 
+      setNewTask("");
     }
   };
 
-  // Function to toggle the status of a task (done or not done)
   const toggleTaskStatus = (taskId) => {
     const updatedTodos = todos.map(todo => {
       if (todo.id === taskId) {
@@ -47,21 +58,14 @@ const TodoApp = () => {
     setTodos(updatedTodos);
   };
 
-  // Function to remove a task by its id
-  const removeTodo = (taskId) => {
-    const updatedTodos = todos.filter(todo => todo.id !== taskId);
-    setTodos(updatedTodos);
-  };
-
-  // Function to remove all tasks
   const removeAll = () => {
     setTodos([]);
   };
 
   return (
-    <div className="todo-app">
-      <h1>Todo List</h1>
-      <ul className="todo-list">
+    <div className='todo-app'>
+      <h1>Todo App</h1>
+      <ul>
         {todos.map(todo => (
           <li key={todo.id}>
             <input
@@ -69,11 +73,11 @@ const TodoApp = () => {
               checked={todo.done}
               onChange={() => toggleTaskStatus(todo.id)}
             />
-            <span className={todo.done ? "task-done" : ""}>{todo.label}</span>
+            <span>{todo.label}</span>
           </li>
         ))}
       </ul>
-      <div className="add-todo">
+      <div>
         <input
           type="text"
           value={newTask}
@@ -88,4 +92,3 @@ const TodoApp = () => {
 };
 
 export default TodoApp;
-
