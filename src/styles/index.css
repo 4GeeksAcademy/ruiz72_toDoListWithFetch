@@ -10,3 +10,72 @@
     import 'relative/path/to/stylesheet.scss';
 
 */
+/* TodoApp.css */
+
+.todo-app {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 2px solid #ff99cc;
+    border-radius: 8px;
+    background-color: #fff5f7;
+  }
+  
+  .todo-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .todo-list li {
+    background-color: #ffd9eb;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+  }
+  
+  .add-todo {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .add-todo input {
+    flex: 1;
+    padding: 8px;
+    font-size: 16px;
+    border: 2px solid #ff99cc;
+    border-radius: 4px;
+  }
+  
+  .add-todo button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    font-size: 16px;
+    background-color: #ff99cc;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+  }
+  
+  .add-todo button:hover {
+    background-color: #ff66b3;
+  }
+  /* TodoApp.css */
+
+/* ... (previous styles) */
+
+.todo-list li {
+    display: flex;
+    align-items: center;
+    background-color: #ffd9eb;
+    padding: 8px;
+    margin: 8px 0;
+    border-radius: 4px;
+  }
+  
+  .task-done {
+    text-decoration: line-through;
+  }
+  
+  
